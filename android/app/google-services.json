@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "793993504641",
+    "project_id": "caresync-46175",
+    "storage_bucket": "caresync-46175.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793993504641:android:1be988aa85604be3f06a80",
+        "android_client_info": {
+          "package_name": "com.rafiqul.caresync.caresync_hms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793993504641-o65b57mqqprpmp1ngcr1iudtousp5fcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rafiqul.caresync.caresync_hms",
+            "certificate_hash": "6a0f50392f3f038db652706877427d00ce19d21b"
+          }
+        },
+        {
+          "client_id": "793993504641-q0fvab4orr0oigt15bs20i85jogeqnvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArBrUI7lquPsgd9TxwvpH07qxj7Mb2SHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793993504641-q0fvab4orr0oigt15bs20i85jogeqnvl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
