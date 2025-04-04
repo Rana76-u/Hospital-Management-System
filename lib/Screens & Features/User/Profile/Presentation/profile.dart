@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../Controller/profile_controller.dart';
 import 'Widgets/profile_input_field.dart';
+import 'Widgets/profile_photo.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -24,12 +25,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         icon: Icon(Icons.save),
         label: Text("Save"),
       ),
-      appBar: AppBar(title: Text("Profile")),
+      appBar: AppBar(title: Text("Profile"), automaticallyImplyLeading: false,),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: 20),
+            profilePhoto(),
+            SizedBox(height: 10),
             ProfileInputFields(controllers: controllers),
             SizedBox(height: 200),
           ],

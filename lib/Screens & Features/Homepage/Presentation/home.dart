@@ -1,5 +1,5 @@
-import 'dart:math';
-
+import 'package:caresync_hms/Screens%20&%20Features/Homepage/Presentation/Widgets/show_doctor_profiles.dart';
+import 'package:caresync_hms/Screens%20&%20Features/Homepage/Presentation/Widgets/types_of_doctors_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../Core/Navigation/AppBar/core_appbar.dart';
 import '../../../Core/Navigation/Drawer/core_drawer.dart';
@@ -17,18 +17,19 @@ class HomePage extends StatelessWidget {
       ),
       drawer: coreDrawer(context),
       backgroundColor: AppColor.backgroundColor,//Colors.black,
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: 100,
-              itemBuilder: (context, index) {
-                Color color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-                return Container(color: color, height: 50,);
-              },
-            ),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              showDoctorProfiles(),
+              const SizedBox(height: 20),
+              typesOfDoctors(),
+              const SizedBox(height: 200),
+            ],
+          ),
+        ),
       ),
     );
   }

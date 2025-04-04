@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColorBlue),
+            fontFamily: 'Urbanist',
           ),
           debugShowCheckedModeBanner: false,
           home: FirebaseAuth.instance.currentUser != null ? BottomBar() : LoginPage(),

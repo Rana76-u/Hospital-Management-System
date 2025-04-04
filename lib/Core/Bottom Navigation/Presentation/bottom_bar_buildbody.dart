@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:caresync_hms/Screens%20&%20Features/Appointment/Presentation/appointment_page.dart';
 import 'package:caresync_hms/Screens%20&%20Features/Homepage/Presentation/home.dart';
 import 'package:flutter/material.dart';
 import '../../../Screens & Features/User/Profile/Presentation/profile.dart';
@@ -10,7 +11,7 @@ Widget bottomBarBuildBody(BuildContext context, int index) {
     case 0:
       return const HomePage();
     case 1:
-      return const Placeholder();
+      return const AppointmentPage();
     case 2:
       return ProfileScreen();
     default:
