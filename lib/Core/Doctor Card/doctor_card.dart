@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 class DoctorCard extends StatelessWidget {
   final String doctorId;
-  const DoctorCard({super.key, required this.doctorId});
+  final bool showButton;
+  const DoctorCard({super.key, required this.doctorId, required this.showButton});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class DoctorCard extends StatelessWidget {
 
                 cardWidgets(doctorsExperience, doctorsAvailability, doctorsFee,),
 
-                bookAppointmentButton()
+                showButton ? bookAppointmentButton(context, doctorId) : SizedBox(),
               ],
             ),
           );

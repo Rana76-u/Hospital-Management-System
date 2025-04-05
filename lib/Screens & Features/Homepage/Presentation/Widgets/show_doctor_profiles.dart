@@ -25,7 +25,7 @@ Widget showDoctorProfiles() {
         items: ['dmHRWKCEI9YWdM8wbbpUBmXXhIC2'].map((i) {
           return Builder(
             builder: (BuildContext context) {
-              return DoctorCard(doctorId: 'dmHRWKCEI9YWdM8wbbpUBmXXhIC2');
+              return DoctorCard(doctorId: 'dmHRWKCEI9YWdM8wbbpUBmXXhIC2', showButton: true,);
             },
           );
         }).toList(),

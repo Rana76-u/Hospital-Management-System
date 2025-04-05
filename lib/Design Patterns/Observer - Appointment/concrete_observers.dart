@@ -1,4 +1,4 @@
-import 'package:caresync_hms/Screens%20&%20Features/Appointment/Repository/appointment_observer_interface.dart';
+import 'appointment_observer_interface.dart';
 
 class Doctor implements AppointmentObserverInterface {
   final String name;

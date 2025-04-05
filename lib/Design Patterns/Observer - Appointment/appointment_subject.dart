@@ -1,6 +1,4 @@
-
-//The Subject (Observable) Class
-import 'package:caresync_hms/Screens%20&%20Features/Appointment/Repository/appointment_observer_interface.dart';
+import 'appointment_observer_interface.dart';
 
 class Appointment {
   final List<AppointmentObserverInterface> _observers = [];
