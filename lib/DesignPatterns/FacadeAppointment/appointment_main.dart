@@ -1,3 +1,6 @@
+//To Run code, type in terminal:
+//dart run lib/DesignPatterns/FacadeAppointment/appointment_main.dart   
+
 // Models
 class Patient {
   final String patientID;
