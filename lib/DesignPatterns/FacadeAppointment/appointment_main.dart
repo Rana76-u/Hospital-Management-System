@@ -1,7 +1,3 @@
-//To Run code, type in terminal:
-//dart run lib/DesignPatterns/FacadeAppointment/appointment_main.dart
-
-
 // Models
 class Patient {
   final String patientID;
@@ -111,20 +107,7 @@ class DoctorAvailabilityService {
   }
 }
 
-class NotificationService {
-  void sendAppointmentConfirmation(String patientID, String doctorID, DateTime datetime) {
-    print('Notification: Appointment confirmed for Patient $patientID with Doctor $doctorID at $datetime');
-  }
-
-  void sendAppointmentRescheduled(String patientID, String doctorID, DateTime oldDatetime, DateTime newDatetime) {
-    print('Notification: Appointment for Patient $patientID with Doctor $doctorID has been rescheduled '
-        'from $oldDatetime to $newDatetime');
-  }
-
-  void sendAppointmentCancellation(String patientID, String doctorID, DateTime datetime) {
-    print('Notification: Appointment for Patient $patientID with Doctor $doctorID at $datetime has been cancelled');
-  }
-}
+// NotificationService has been removed as it's implemented by the Observer pattern
 
 class AppointmentRecordService {
   final List<Appointment> _appointments = [];
@@ -185,12 +168,10 @@ class AppointmentRecordService {
 // The Facade class that simplifies the appointment system
 class AppointmentFacade {
   final DoctorAvailabilityService _availabilityService;
-  final NotificationService _notificationService;
   final AppointmentRecordService _recordService;
 
   AppointmentFacade()
       : _availabilityService = DoctorAvailabilityService(),
-        _notificationService = NotificationService(),
         _recordService = AppointmentRecordService();
 
   // Simplified interface for booking an appointment
@@ -209,9 +190,7 @@ class AppointmentFacade {
     // Update doctor's schedule
     _availabilityService.addAppointmentToSchedule(doctorID, datetime);
     
-    // Send confirmation notification
-    _notificationService.sendAppointmentConfirmation(patientID, doctorID, datetime);
-    
+    // Note: Notification is handled by Observer pattern
     print('Appointment successfully booked!');
     return appointment;
   }
@@ -225,7 +204,6 @@ class AppointmentFacade {
       return false;
     }
 
-    final patientID = appointment.patientID;
     final doctorID = appointment.doctorID;
     final oldDatetime = appointment.datetime;
 
@@ -242,8 +220,7 @@ class AppointmentFacade {
     // Update appointment record
     _recordService.updateAppointmentTime(appointmentID, newDatetime);
     
-    // Send notification
-    _notificationService.sendAppointmentRescheduled(patientID, doctorID, oldDatetime, newDatetime);
+    // Note: Notification is handled by Observer pattern
     
     print('Appointment successfully rescheduled!');
     return true;
@@ -258,7 +235,6 @@ class AppointmentFacade {
       return false;
     }
 
-    final patientID = appointment.patientID;
     final doctorID = appointment.doctorID;
     final datetime = appointment.datetime;
 
@@ -268,8 +244,7 @@ class AppointmentFacade {
     // Update appointment status
     _recordService.updateAppointmentStatus(appointmentID, 'Canceled');
     
-    // Send notification
-    _notificationService.sendAppointmentCancellation(patientID, doctorID, datetime);
+    // Note: Notification is handled by Observer pattern
     
     print('Appointment successfully canceled!');
     return true;
