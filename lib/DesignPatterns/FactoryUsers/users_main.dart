@@ -1,5 +1,5 @@
 //To Run code, type in terminal:
-//dart run lib/DesignPatterns/FactoryUsers/user_main.dart
+//dart run lib/DesignPatterns/FactoryUsers/users_main.dart
 
 
 // Abstract Product - User (base class)
