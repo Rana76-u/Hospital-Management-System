@@ -2,72 +2,83 @@
 //dart run lib/DesignPatterns/SingletonPayment/payment_main.dart
 
 class PaymentProcessor {
-  // Static instance variable to hold the singleton instance
+  // Private static instance variable
   static PaymentProcessor? _instance;
-  
-  // Private constructor to prevent direct instantiation
-  PaymentProcessor._() {
-    print('PaymentProcessor initialized');
-  }
-  
-  // Static getter method to access the singleton instance
-  static PaymentProcessor get instance {
+
+  // Attributes
+  String? paymentID;
+  String? patientID;
+  double totalAmount = 0.0;
+  String paymentStatus = 'Pending';
+
+  // Private constructor
+  PaymentProcessor._internal();
+
+  // Static method to get the instance
+  static PaymentProcessor getInstance() {
     // Create the instance if it doesn't exist yet
-    _instance ??= PaymentProcessor._();
+    _instance ??= PaymentProcessor._internal();
     return _instance!;
   }
-  
-  // Method to process payments
-  void processPayment(double amount, String patientId, String description) {
-    print('Processing payment of \$${amount.toStringAsFixed(2)} for patient $patientId');
-    print('Description: $description');
-    print('Payment processed successfully');
-  }
-  
-  // Method to refund payments
-  void refundPayment(String transactionId, double amount) {
-    print('Refunding payment $transactionId of \$${amount.toStringAsFixed(2)}');
-    print('Refund processed successfully');
-  }
-  
-  // Method to check transaction status
-  String checkTransactionStatus(String transactionId) {
-    // In a real implementation, this would check a database or payment gateway
-    print('Checking status of transaction $transactionId');
-    return 'COMPLETED';
+
+  // Method to process payment
+  void processPayment() {
+    if (patientID == null || patientID!.isEmpty) {
+      print('Error: Patient ID is required');
+      return;
+    }
+
+    if (totalAmount <= 0) {
+      print('Error: Total amount must be greater than zero');
+      return;
+    }
+
+    // Generate a unique payment ID (in a real system, this would be more sophisticated)
+    paymentID = 'PAY-${DateTime.now().millisecondsSinceEpoch}';
+    
+    // Payment processing logic
+    print('Processing payment...');
+    print('Payment ID: $paymentID');
+    print('Patient ID: $patientID');
+    print('Amount: \$${totalAmount.toStringAsFixed(2)}');
+    
+    // Simulate payment success
+    paymentStatus = 'Completed';
+    print('Payment status: $paymentStatus');
   }
 }
 
-// main.dart - Example usage
-
+// main.dart - Demo usage
 void main() {
-  print('Hospital Management System - Payment Processing');
-  print('-------------------------------------------------');
+  // Get the singleton instance
+  final paymentProcessor = PaymentProcessor.getInstance();
   
-  // First access - this will initialize the singleton
-  final paymentProcessor1 = PaymentProcessor.instance;
+  // Set payment details
+  paymentProcessor.patientID = 'P001';
+  paymentProcessor.totalAmount = 250.50;
   
-  // Process a payment
-  paymentProcessor1.processPayment(150.75, 'P12345', 'Consultation fee');
+  // Process the payment
+  paymentProcessor.processPayment();
   
-  print('\nAttempting to access the instance again...');
+  // Prove it's a singleton by getting another "instance"
+  final anotherReference = PaymentProcessor.getInstance();
   
-  // Second access - should return the same instance
-  final paymentProcessor2 = PaymentProcessor.instance;
+  // Check if they are the same instance
+  print('\nSingleton test:');
+  print('Is same instance? ${identical(paymentProcessor, anotherReference)}');
   
-  // Check if it's the same instance
-  print('Are both references pointing to the same object? ${identical(paymentProcessor1, paymentProcessor2)}');
+  // We can access the previous payment's details through the new reference
+  print('Payment ID from second reference: ${anotherReference.paymentID}');
+  print('Payment status from second reference: ${anotherReference.paymentStatus}');
   
-  // Use the second reference to process another payment
-  print('\nUsing second reference to process another payment:');
-  paymentProcessor2.processPayment(75.50, 'P54321', 'Medication cost');
+  // Process another payment using the second reference
+  print('\nProcessing another payment:');
+  anotherReference.patientID = 'P002';
+  anotherReference.totalAmount = 175.25;
+  anotherReference.processPayment();
   
-  // Check transaction status
-  print('\nChecking transaction status:');
-  String status = PaymentProcessor.instance.checkTransactionStatus('TXN123456');
-  print('Transaction status: $status');
-  
-  // Process refund
-  print('\nProcessing refund:');
-  paymentProcessor1.refundPayment('TXN123456', 25.00);
+  // Show that the first reference also reflects these changes
+  print('\nFirst reference now shows:');
+  print('Patient ID: ${paymentProcessor.patientID}');
+  print('Payment ID: ${paymentProcessor.paymentID}');
 }
