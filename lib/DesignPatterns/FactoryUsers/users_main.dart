@@ -259,51 +259,6 @@ class UserFactory {
       bloodType: bloodType
     ).createUser();
   }
-  
-  // Generic creation method based on user type
-  static User createUser(String userType, Map<String, dynamic> userData) {
-    switch (userType.toLowerCase()) {
-      case 'admin':
-        return createAdmin(
-          id: userData['id'],
-          name: userData['name'],
-          email: userData['email'],
-          password: userData['password'],
-          adminLevel: userData['adminLevel'],
-          permissions: userData['permissions']
-        );
-      case 'doctor':
-        return createDoctor(
-          id: userData['id'],
-          name: userData['name'],
-          email: userData['email'],
-          password: userData['password'],
-          specialization: userData['specialization'],
-          licenseNumber: userData['licenseNumber']
-        );
-      case 'staff':
-        return createStaff(
-          id: userData['id'],
-          name: userData['name'],
-          email: userData['email'],
-          password: userData['password'],
-          department: userData['department'],
-          role: userData['role']
-        );
-      case 'patient':
-        return createPatient(
-          id: userData['id'],
-          name: userData['name'],
-          email: userData['email'],
-          password: userData['password'],
-          medicalRecordNumber: userData['medicalRecordNumber'],
-          dateOfBirth: userData['dateOfBirth'],
-          bloodType: userData['bloodType']
-        );
-      default:
-        throw Exception('Invalid user type: $userType');
-    }
-  }
 }
 
 // Example usage in main.dart
@@ -347,14 +302,14 @@ void main() {
   );
   
   // Using generic creation method with map data
-  User admin2 = UserFactory.createUser('admin', {
-    'id': 'A002',
-    'name': 'Jane Admin',
-    'email': 'jane.admin@hospital.com',
-    'password': 'securepass456',
-    'adminLevel': 'Department Admin',
-    'permissions': ['manage_department', 'view_reports']
-  });
+  User admin2 = UserFactory.createAdmin(
+    id: 'A002',
+    name: 'Jane Admin',
+    email: 'jane.admin@hospital.com',
+    password: 'securepass456',
+    adminLevel: 'Department Admin',
+    permissions: ['manage_department', 'view_reports']
+  );
   
   // Display all users' information
   admin.displayInfo();
