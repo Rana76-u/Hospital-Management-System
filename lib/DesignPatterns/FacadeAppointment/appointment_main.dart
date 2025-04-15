@@ -110,7 +110,7 @@ class DoctorAvailabilityService {
   }
 }
 
-// NotificationService has been removed as it's implemented by the Observer pattern
+
 
 class AppointmentRecordService {
   final List<Appointment> _appointments = [];
