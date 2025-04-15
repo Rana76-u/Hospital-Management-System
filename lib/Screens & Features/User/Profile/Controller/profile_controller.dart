@@ -18,7 +18,9 @@ class ProfileControllers {
   final specialization = TextEditingController();
   final licence = TextEditingController();
   final experience = TextEditingController();
-  final availability = TextEditingController();
+  DateTime? selectedDate;
+  TimeOfDay? selectedFromTime;
+  TimeOfDay? selectedUntilTime;
   final fee = TextEditingController();
 
   // Staff
@@ -43,7 +45,6 @@ class ProfileControllers {
     specialization.dispose();
     licence.dispose();
     experience.dispose();
-    availability.dispose();
     fee.dispose();
     department.dispose();
     designation.dispose();

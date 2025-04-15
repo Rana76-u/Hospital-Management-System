@@ -25,12 +25,13 @@ class DoctorCard extends StatelessWidget {
             return const Center(child: Text('Doctor not found'));
           }
 
-          final doctorsImage = snapshot.data!.get('photo');
+          final doctorsImage = snapshot.data!.get('photoUrl');
           final doctorsPhoneNumber = snapshot.data!.get('phone');
           final doctorName = snapshot.data!.get('name');
           final doctorsSpecialization = snapshot.data!.get('specialization');
           final doctorsExperience = snapshot.data!.get('experience_level');
-          final doctorsAvailability = snapshot.data!.get('availability');
+          final doctorsAvailableFrom = snapshot.data!.get('availableFrom').toDate().toString();
+          final doctorsAvailableUntil = snapshot.data!.get('availableUntil').toDate().toString();
           final doctorsFee = snapshot.data!.get('consultation_fee').toString();
 
           return Card(
@@ -40,7 +41,7 @@ class DoctorCard extends StatelessWidget {
                 topProfileWidget(doctorsImage, doctorName, doctorsPhoneNumber),
                 specializationWidget(doctorsSpecialization),
 
-                cardWidgets(doctorsExperience, doctorsAvailability, doctorsFee,),
+                cardWidgets(doctorsExperience, doctorsAvailableFrom, doctorsAvailableUntil, doctorsFee,),
 
                 showButton ? bookAppointmentButton(context, doctorId) : SizedBox(),
               ],
@@ -50,7 +51,7 @@ class DoctorCard extends StatelessWidget {
     );
   }
 
-  Widget cardWidgets(String doctorsExperience, String doctorsAvailability, String doctorsFee,) {
+  Widget cardWidgets(String doctorsExperience, String doctorsAvailableFrom, String doctorsAvailableUntil, String doctorsFee) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
@@ -59,7 +60,9 @@ class DoctorCard extends StatelessWidget {
           children: [
             subCards('Experience', doctorsExperience),
             const SizedBox(width: 3),
-            subCards('Available Time', doctorsAvailability),
+            subCards('Available From', doctorsAvailableFrom),
+            const SizedBox(width: 3),
+            subCards('Available Until', doctorsAvailableUntil),
             const SizedBox(width: 3),
             subCards('Consultation Fee', doctorsFee),
           ],

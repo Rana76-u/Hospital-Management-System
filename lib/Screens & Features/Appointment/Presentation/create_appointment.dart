@@ -2,6 +2,7 @@ import 'package:caresync_hms/Core/Doctor%20Card/doctor_card.dart';
 import 'package:caresync_hms/Core/TextBox/custom_input_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../../DesignPatterns/FacadeAppointment/new_facade_appointment.dart';
 import '../Repository/create_appointment_repo.dart';
 
 class CreateAppointment extends StatefulWidget {
@@ -13,20 +14,39 @@ class CreateAppointment extends StatefulWidget {
 }
 
 class _CreateAppointmentState extends State<CreateAppointment> {
-  final createAppointmentRepo = AppointmentRepository();
+  final createAppointmentRepo = AppointmentUIUtility();
   final String patientId = FirebaseAuth.instance.currentUser!.uid;
 
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   final TextEditingController reasonController = TextEditingController();
 
-  void bookAppointment() {
-    final dateTime = createAppointmentRepo.createDateTime(selectedDate, selectedTime);
-    if (dateTime != null) {
-      createAppointmentRepo.createAppointment(widget.doctorId, patientId, dateTime, reasonController.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Appointment booked on $dateTime')),
+  void bookAppointmentOnClickFunction() async {
+    final selectedDateTime = createAppointmentRepo.createDateTime(
+      selectedDate,
+      selectedTime,
+    );
+
+    if (selectedDateTime != null) {
+      final facade = AppointmentFacade();
+      final appointment = await facade.bookAppointment(
+        patientID: patientId,
+        doctorID: widget.doctorId,
+        datetime: selectedDateTime,
+        reason: reasonController.text,
       );
+
+      if (appointment != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Appointment booked on \$selectedDateTime')),
+        );
+
+        Navigator.of(context).pop();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Doctor not available at selected time')),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please select both date and time')),
@@ -66,7 +86,7 @@ class _CreateAppointmentState extends State<CreateAppointment> {
                   CustomInputField(inputController: reasonController, fieldName: 'Reason for Appointment'),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: bookAppointment,
+                    onPressed: bookAppointmentOnClickFunction,
                     child: Text('Confirm Appointment'),
                   ),
                 ],

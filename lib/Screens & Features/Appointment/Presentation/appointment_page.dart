@@ -19,7 +19,7 @@ class AppointmentPage extends StatelessWidget {
                 future: FirebaseFirestore
                     .instance
                     .collection('appointments')
-                    .where('patientId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .where('patientID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                     .get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -29,7 +29,7 @@ class AppointmentPage extends StatelessWidget {
                   return const Center(child: Text('Error fetching appointments'));
                 }
                 if (snapshot.hasData && snapshot.data!.docs.isEmpty) {
-                  return const Center(child: Text('No appointments found'));
+                  return Center(child: Text('No appointments found, ${FirebaseAuth.instance.currentUser!.uid}'));
                 }
                 final appointments = snapshot.data!.docs;
                 return ListView.builder(
@@ -42,7 +42,7 @@ class AppointmentPage extends StatelessWidget {
                     final DateTime appointmentDatetime = DateTime.parse(appointment['appointmentDatetime'].toDate().toString());
                     final DateTime createdAt = DateTime.parse(appointment['createdAt'].toDate().toString());
                     final DateTime updatedAt = DateTime.parse(appointment['updatedAt'].toDate().toString());
-                    final String doctorId = appointment['doctorId'];
+                    final String doctorId = appointment['doctorID'];
                     final String reason = appointment['reason'];
                     final String status = appointment['status'];
 

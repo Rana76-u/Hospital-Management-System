@@ -11,6 +11,7 @@ class Person {
   final String phone;
   final String gender;
   final String role;
+  final String photoUrl;
 
   Person({
     required this.id,
@@ -19,6 +20,7 @@ class Person {
     required this.phone,
     required this.gender,
     required this.role,
+    required this.photoUrl
   });
 }
 
@@ -45,6 +47,7 @@ class BasicProfile implements ProfileComponent {
       'phone': person.phone,
       'gender': person.gender,
       'role': person.role,
+      'photoUrl': person.photoUrl,
     };
   }
 }
@@ -96,7 +99,8 @@ class DoctorProfileDecorator extends ProfileDecorator {
   final String specialization;
   final String licenceNumber;
   final String experienceLevel;
-  final String availability;
+  final DateTime availableFrom;
+  final DateTime availableUntil;
   final int consultationFee;
 
   DoctorProfileDecorator(
@@ -104,14 +108,15 @@ class DoctorProfileDecorator extends ProfileDecorator {
         required this.specialization,
         required this.licenceNumber,
         required this.experienceLevel,
-        required this.availability,
+        required this.availableFrom,
+        required this.availableUntil,
         required this.consultationFee,
       });
 
   @override
   void displayProfile() {
     super.displayProfile();
-    print('Specialization: $specialization\nLicense: $licenceNumber\nExperience: $experienceLevel\nAvailability: $availability\nFee: \$$consultationFee');
+    print('Specialization: $specialization\nLicense: $licenceNumber\nExperience: $experienceLevel\nAvailability: $availableFrom\nFee: \$$consultationFee');
   }
 
   @override
@@ -121,7 +126,8 @@ class DoctorProfileDecorator extends ProfileDecorator {
       'specialization': specialization,
       'licence_number': licenceNumber,
       'experience_level': experienceLevel,
-      'availability': availability,
+      'availableFrom': availableFrom,
+      'availableUntil': availableUntil,
       'consultation_fee': consultationFee,
     };
   }
@@ -197,6 +203,7 @@ class UserRepository {
       phone: user.phoneNumber ?? '',
       gender: '',
       role: userType,
+      photoUrl: user.photoURL ?? '',
     );
 
     ProfileComponent profile = BasicProfile(person);
@@ -214,8 +221,10 @@ class UserRepository {
             specialization: '',
             licenceNumber: '',
             experienceLevel: '',
-            availability: '',
-            consultationFee: 0);
+            availableFrom: DateTime.now(),
+            availableUntil: DateTime.now(),
+            consultationFee: 0
+        );
         break;
       case 'staff':
         profile = StaffProfileDecorator(profile,
@@ -240,6 +249,7 @@ class UserRepository {
       phone: controllers.phoneNumber.text,
       gender: controllers.gender.text,
       role: controllers.role.text,
+      photoUrl: FirebaseAuth.instance.currentUser?.photoURL ?? '',
     );
 
     ProfileComponent profile = BasicProfile(person);
@@ -257,7 +267,20 @@ class UserRepository {
             specialization: controllers.specialization.text,
             licenceNumber: controllers.licence.text,
             experienceLevel: controllers.experience.text,
-            availability: controllers.availability.text,
+            availableFrom: DateTime(
+              controllers.selectedDate!.year,
+              controllers.selectedDate!.month,
+              controllers.selectedDate!.day,
+              controllers.selectedFromTime!.hour,
+              controllers.selectedFromTime!.minute,
+            ),
+            availableUntil: DateTime(
+              controllers.selectedDate!.year,
+              controllers.selectedDate!.month,
+              controllers.selectedDate!.day,
+              controllers.selectedUntilTime!.hour,
+              controllers.selectedUntilTime!.minute,
+            ),
             consultationFee: int.tryParse(controllers.fee.text) ?? 0);
         break;
       case 'staff':
