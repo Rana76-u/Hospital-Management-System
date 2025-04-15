@@ -1,5 +1,5 @@
 //To Run code, type in terminal:
-//dart run lib/DesignPatterns/DecoratorProfile/profile_main.dart
+//dart run lib/DesignPatterns/DecoratorProfile/decorator_profile_old.dart
 
 // Base models for the system
 class Person {

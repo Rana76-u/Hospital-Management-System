@@ -1,7 +1,7 @@
 import 'package:caresync_hms/Core/Snackbar/custom_snackbars.dart';
-import 'package:caresync_hms/Screens%20&%20Features/User/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../../../DesignPatterns/DecoratorProfile/new_decorator_profile.dart';
 import '../Controller/profile_controller.dart';
 import 'Widgets/profile_input_field.dart';
 import 'Widgets/profile_photo.dart';

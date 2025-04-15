@@ -17,6 +17,7 @@ class Doctor {
   Doctor(this.doctorID, this.name, this.specialization);
 }
 
+//appointment create and update
 class Appointment {
   final String appointmentID;
   final String patientID;

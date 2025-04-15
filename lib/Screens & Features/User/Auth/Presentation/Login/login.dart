@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../../../Core/Bottom Navigation/Presentation/bottom_nav_bar.dart';
-import '../../../user_data.dart';
+import '../../../../../DesignPatterns/DecoratorProfile/new_decorator_profile.dart';
 import '../../Data/auth_service.dart';
 import 'login_widgeds.dart';
 

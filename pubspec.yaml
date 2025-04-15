@@ -42,6 +42,8 @@ dependencies:
   flashy_tab_bar2: ^0.0.10
   google_sign_in: ^6.3.0
   carousel_slider: ^5.0.0
+  firebase_messaging: ^15.2.5
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

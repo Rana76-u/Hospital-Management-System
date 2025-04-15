@@ -1,1 +1,35 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"caresync-46175","appId":"1:793993504641:android:1be988aa85604be3f06a80","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"caresync-46175","configurations":{"android":"1:793993504641:android:1be988aa85604be3f06a80","web":"1:793993504641:web:2826282fe88e8645f06a80"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "caresync-46175",
+          "appId": "1:793993504641:android:1be988aa85604be3f06a80",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "caresync-46175",
+          "configurations": {
+            "android": "1:793993504641:android:1be988aa85604be3f06a80",
+            "web": "1:793993504641:web:2826282fe88e8645f06a80"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}

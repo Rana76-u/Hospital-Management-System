@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Profile/Controller/profile_controller.dart';
 
-class UserRepository {
+/*class UserRepository {
   Future<bool> checkUserExists(String userId) async {
     DocumentSnapshot documentSnapshot =
     await FirebaseFirestore.instance.collection('user').doc(userId).get();
@@ -113,4 +113,4 @@ class UserRepository {
     }
   }
 
-}
+}*/

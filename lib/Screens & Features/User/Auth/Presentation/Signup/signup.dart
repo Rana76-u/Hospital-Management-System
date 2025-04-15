@@ -1,9 +1,9 @@
 import 'package:caresync_hms/Core/Bottom%20Navigation/Presentation/bottom_nav_bar.dart';
-import 'package:caresync_hms/Screens%20&%20Features/User/user_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Core/Navigation/Routing/routing.dart';
 import '../../../../../Core/Snackbar/custom_snackbars.dart';
+import '../../../../../DesignPatterns/DecoratorProfile/new_decorator_profile.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
