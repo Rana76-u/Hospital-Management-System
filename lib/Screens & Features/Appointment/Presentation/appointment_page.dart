@@ -1,3 +1,4 @@
+import 'package:caresync_hms/Screens%20&%20Features/Billing/billing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class AppointmentPage extends StatelessWidget {
                     final String doctorId = appointment['doctorID'];
                     final String reason = appointment['reason'];
                     final String status = appointment['status'];
+                    final String paymentStatus = appointment['paymentStatus'];
 
                     final DateFormat formatter = DateFormat('d MMMM y \'at\' hh:mm a');
                     return Padding(
@@ -78,7 +80,18 @@ class AppointmentPage extends StatelessWidget {
                               _buildRow(Icons.info_outline, 'Status', status),
                               _buildRow(Icons.timer, 'Created At', formatter.format(createdAt)),
                               _buildRow(Icons.update, 'Updated At', formatter.format(updatedAt)),
+                              _buildRow(Icons.info_outline, 'Payment Status', paymentStatus),
 
+                              if(paymentStatus == 'Pending') ...[
+                                ElevatedButton(
+                                    onPressed: (){
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) => BillingPage(appointmentId: appointment.id,))
+                                      );
+                                    },
+                                    child: Text('Make Payment')
+                                )
+                              ]
                             ],
                           ),
                         ),

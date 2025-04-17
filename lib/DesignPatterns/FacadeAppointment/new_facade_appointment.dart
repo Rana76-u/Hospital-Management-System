@@ -39,6 +39,7 @@ class Appointment {
     'reason': reason,
     'createdAt': DateTime.now(),
     'updatedAt': DateTime.now(),
+    'paymentStatus': 'Pending',
   };
 
   void updateStatus(String newStatus) {
