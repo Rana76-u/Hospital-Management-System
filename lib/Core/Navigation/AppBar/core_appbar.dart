@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../Screens & Features/User/Auth/Data/auth_service.dart';
+import '../../../DesignPatterns/SingletonAuthentication/singleton_auth.dart';
 import '../../../Screens & Features/User/Auth/Presentation/Login/login.dart';
 
 
@@ -48,7 +48,11 @@ class _ProfileIcon extends StatelessWidget {
           PopupMenuItem(
             child: Text('Sign Out'),
             onTap: () {
-              AuthService().signOut(context, LoginPage());
+              AuthService.instance.signOut();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginPage()),
+                    (Route<dynamic> route) => false,
+              );
             },
           ),
         ]);

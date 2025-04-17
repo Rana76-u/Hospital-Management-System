@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import '../../../../../Core/Bottom Navigation/Presentation/bottom_nav_bar.dart';
 import '../../../../../DesignPatterns/DecoratorProfile/new_decorator_profile.dart';
-import '../../Data/auth_service.dart';
+import '../../../../../DesignPatterns/SingletonAuthentication/singleton_auth.dart';
 import 'login_widgeds.dart';
 
 class LoginPage extends StatefulWidget {
@@ -23,34 +23,49 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
+  final authService = AuthService.instance;
 
   void loginOnPressFunctions() {
+    setState(() {
+      isLoading = true;
+    });
 
-    setState(() {isLoading = true;});
+    AuthService.instance.signInWithGoogle().then((_) async {
+      final user = FirebaseAuth.instance.currentUser;
 
-    AuthService().signInWithGoogle().then((_) async {
+      if (user == null) {
+        if (!mounted) return;
+        setState(() {
+          isLoading = false;
+        });
+        CustomSnackBar().openErrorSnackBar(context, "User is null after sign-in.");
+        return;
+      }
 
-      bool isUserExists = await UserRepository().checkUserExists(FirebaseAuth.instance.currentUser!.uid);
-      if(!mounted) return;
+      bool isUserExists = await UserRepository().checkUserExists(user.uid);
+
+      if (!mounted) return;
 
       setState(() {
         isLoading = false;
       });
 
-      if(isUserExists){
-        CustomSnackBar().openIconSnackBar(context, 'Login Successful', Icon(Icons.done, color: Colors.white,));
+      if (isUserExists) {
+        CustomSnackBar().openIconSnackBar(
+          context,
+          'Login Successful',
+          Icon(Icons.done, color: Colors.white),
+        );
         Routing().goto(context, BottomBar());
-      }
-      else{
+      } else {
         Routing().goto(context, SignupPage());
       }
+    }).catchError((error) {
+      if (!mounted) return;
 
-    })
-        .catchError((error) {
-      if(!mounted) return;
-      CustomSnackBar().openErrorSnackBar(context, error);
+      CustomSnackBar().openErrorSnackBar(context, error.toString());
 
-      debugPrint('Error: $error');
+      debugPrint('Login Error: $error');
 
       setState(() {
         isLoading = false;
