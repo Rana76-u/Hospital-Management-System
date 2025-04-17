@@ -1,4 +1,8 @@
+import 'package:caresync_hms/DesignPatterns/ObserverAppointmentNotifications/observer_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+import '../../Core/Snackbar/custom_snackbars.dart';
 
 // Models
 class Patient {
@@ -56,7 +60,7 @@ class Appointment {
 class AppointmentRecordService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<Appointment> createAppointmentRecord({
+  Future<String> createAppointmentRecord({
     required String patientID,
     required String doctorID,
     required DateTime datetime,
@@ -69,10 +73,11 @@ class AppointmentRecordService {
       reason: reason,
     );
 
-    await _firestore.collection('appointments').add(appointment.toJson());
+    final docRef = await _firestore.collection('appointments').add(appointment.toJson());
+    final docId = docRef.id;
 
     print('Created appointment record in Firestore: \$appointment');
-    return appointment;
+    return docId;
   }
 
   Future<void> updateAppointmentStatus(String appointmentID, String newStatus) async {
@@ -137,11 +142,12 @@ class AppointmentFacade {
   final DoctorAvailabilityService _availabilityService = DoctorAvailabilityService();
   final AppointmentRecordService _recordService = AppointmentRecordService();
 
-  Future<Appointment?> bookAppointment({
+  Future<String?> bookAppointment({
     required String patientID,
     required String doctorID,
     required DateTime datetime,
     required String reason,
+    required BuildContext context,
   }) async {
     print('\n--- BOOKING APPOINTMENT ---');
 
@@ -158,7 +164,18 @@ class AppointmentFacade {
       reason: reason,
     );
 
-    print('Appointment successfully booked!');
+    CustomSnackBar().openPrimarySnackBar(context, "Appointment Booked Successfully");
+    // Notify observers here
+    CustomSnackBar().openPrimarySnackBar(context, "✅ Appointment Booked Successfully");
+
+
+    // Notify observers
+    AppointmentNotification appointmentNotification = AppointmentNotification(appointment);
+    appointmentNotification.addObserver(ObserverDoctor(doctorID));
+    appointmentNotification.addObserver(ObserverPatient(patientID));
+    appointmentNotification.setStatus("Scheduled");
+    appointmentNotification.clearObservers();
+
     return appointment;
   }
 

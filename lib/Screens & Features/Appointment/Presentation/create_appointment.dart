@@ -2,7 +2,7 @@ import 'package:caresync_hms/Core/Doctor%20Card/doctor_card.dart';
 import 'package:caresync_hms/Core/TextBox/custom_input_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../DesignPatterns/FacadeAppointment/new_facade_appointment.dart';
+import '../../../DesignPatterns/FacadeAppointment/facade_appointment.dart';
 import '../Repository/create_appointment_repo.dart';
 
 class CreateAppointment extends StatefulWidget {
@@ -34,7 +34,9 @@ class _CreateAppointmentState extends State<CreateAppointment> {
         doctorID: widget.doctorId,
         datetime: selectedDateTime,
         reason: reasonController.text,
+        context: context
       );
+
 
       if (appointment != null) {
         ScaffoldMessenger.of(context).showSnackBar(
