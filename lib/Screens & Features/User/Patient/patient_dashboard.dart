@@ -5,8 +5,8 @@ import '../../../Core/Navigation/AppBar/core_appbar.dart';
 import '../../../Core/Navigation/Drawer/core_drawer.dart';
 import '../../../Core/Theme/app_color.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class PatientDashboard extends StatelessWidget {
+  const PatientDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {

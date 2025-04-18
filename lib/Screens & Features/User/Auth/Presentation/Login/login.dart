@@ -3,12 +3,16 @@ import 'package:caresync_hms/Core/Navigation/Routing/routing.dart';
 import 'package:caresync_hms/Core/Snackbar/custom_snackbars.dart';
 import 'package:caresync_hms/Core/Theme/app_color.dart';
 import 'package:caresync_hms/Screens%20&%20Features/User/Auth/Presentation/Signup/signup.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
 
 // Project imports:
+import '../../../../../Core/Bottom Navigation/Bloc/bottom_bar_bloc.dart';
+import '../../../../../Core/Bottom Navigation/Bloc/bottom_bar_events.dart';
 import '../../../../../Core/Bottom Navigation/Presentation/bottom_nav_bar.dart';
 import '../../../../../DesignPatterns/DecoratorProfile/decorator_profile.dart';
 import '../../../../../DesignPatterns/SingletonAuthentication/singleton_auth.dart';
@@ -56,6 +60,14 @@ class _LoginPageState extends State<LoginPage> {
           'Login Successful',
           Icon(Icons.done, color: Colors.white),
         );
+        //send to HomePage
+        await FirebaseFirestore.instance.collection('user')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .get().then((value) {
+          String userType = value.data()!['role'];
+          context.read<BottomBarBloc>().add(UpdateUserType(userType));
+        });
+
         Routing().goto(context, BottomBar());
       } else {
         Routing().goto(context, SignupPage());

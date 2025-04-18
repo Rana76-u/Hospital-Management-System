@@ -2,6 +2,8 @@ import 'package:caresync_hms/Core/Snackbar/custom_snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../DesignPatterns/DecoratorProfile/decorator_profile.dart';
+import '../../../../DesignPatterns/SingletonAuthentication/singleton_auth.dart';
+import '../../Auth/Presentation/Login/login.dart';
 import '../Controller/profile_controller.dart';
 import 'Widgets/profile_input_field.dart';
 import 'Widgets/profile_photo.dart';
@@ -34,6 +36,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             profilePhoto(),
             SizedBox(height: 10),
             ProfileInputFields(controllers: controllers),
+            SizedBox(height: 20),
+
+            ElevatedButton(
+                onPressed: () {
+                  AuthService.instance.signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                        (Route<dynamic> route) => false,
+                  );
+                },
+                child: Text('Sign Out'),
+            ),
             SizedBox(height: 200),
           ],
         ),

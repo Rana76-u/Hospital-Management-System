@@ -1,4 +1,5 @@
 class BottomBarState{
   final int index;
-  BottomBarState({required this.index});
+  final String userType;
+  BottomBarState({required this.index, required this.userType});
 }

@@ -1,10 +1,12 @@
 import 'package:caresync_hms/Core/Bottom%20Navigation/Bloc/bottom_bar_bloc.dart';
 import 'package:caresync_hms/Core/Bottom%20Navigation/Presentation/bottom_nav_bar.dart';
 import 'package:caresync_hms/Core/Theme/app_color.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'Core/Bottom Navigation/Bloc/bottom_bar_events.dart';
 import 'Screens & Features/User/Auth/Presentation/Login/login.dart';
 import 'firebase_options.dart';
 

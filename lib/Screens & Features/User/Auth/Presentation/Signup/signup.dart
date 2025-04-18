@@ -1,6 +1,10 @@
 import 'package:caresync_hms/Core/Bottom%20Navigation/Presentation/bottom_nav_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../Core/Bottom Navigation/Bloc/bottom_bar_bloc.dart';
+import '../../../../../Core/Bottom Navigation/Bloc/bottom_bar_events.dart';
 import '../../../../../Core/Navigation/Routing/routing.dart';
 import '../../../../../Core/Snackbar/custom_snackbars.dart';
 import '../../../../../DesignPatterns/DecoratorProfile/decorator_profile.dart';
@@ -52,6 +56,12 @@ class _SignupPageState extends State<SignupPage> {
           )
       );
       //send to HomePage
+      FirebaseFirestore.instance.collection('user')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get().then((value) {
+        String userType = value.data()!['role'];
+        context.read<BottomBarBloc>().add(UpdateUserType(userType));
+      });
       Routing().goto(context, BottomBar());
     }
     else{

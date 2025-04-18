@@ -117,6 +117,7 @@ class _ProfileInputFieldsState extends State<ProfileInputFields> {
         Text(
           'Select Date: ${createAppointmentRepo.formatDate(widget.controllers.selectedDate)}',
           style: const TextStyle(fontSize: 16),
+          overflow: TextOverflow.ellipsis,
         ),
         const Spacer(),
         ElevatedButton(
@@ -133,9 +134,12 @@ class _ProfileInputFieldsState extends State<ProfileInputFields> {
   Widget selectTimeWidget(String text, TimeOfDay selectedTime){
     return Row(
       children: [
-        Text(
-          '$text ${createAppointmentRepo.formatTime(selectedTime)}',
-          style: const TextStyle(fontSize: 16),
+        Flexible(
+          child: Text(
+            '$text ${createAppointmentRepo.formatTime(selectedTime)}',
+            style: const TextStyle(fontSize: 16),
+            overflow: TextOverflow.clip,
+          ),
         ),
         const Spacer(),
         ElevatedButton(
