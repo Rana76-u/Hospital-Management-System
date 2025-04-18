@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -14,22 +16,41 @@ import 'bottom_bar_buildbody.dart';
 class BottomBar extends StatelessWidget {
    const BottomBar({super.key});
 
+   void checkUserType(BuildContext context) async {
+     String userType = await FirebaseFirestore.instance
+         .collection('user')
+         .doc(FirebaseAuth.instance.currentUser!.uid)
+         .get()
+         .then((value) => value.data()!['role']);
+
+     BlocProvider.of<BottomBarBloc>(context).add(UpdateUserType(userType));
+   }
+
   @override
   Widget build(BuildContext context) {
+     checkUserType(context);
     return BlocProvider(
       create: (_) => BottomBarBloc(),
       child: BlocBuilder<BottomBarBloc, BottomBarState>(
         builder: (context, state) {
           return Scaffold(
-            body: bottomBarBuildBody(context, state.index),
+            body: bottomBarBuildBody(context, state.index, state.userType),
             bottomNavigationBar: FlashyTabBar(
               animationCurve: Curves.linear,
               selectedIndex: state.index,
               iconSize: 25,
               showElevation: false,
-              onItemSelected: (index) {
+              onItemSelected: (index) async {
                 context.read<BottomBarBloc>().add(BottomBarSelectedItem(index));
-                bottomBarBuildBody(context, index);
+
+                await FirebaseFirestore.instance.collection('user')
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .get().then((value) {
+                  String userType = value.data()!['role'];
+                  print(userType);
+                  context.read<BottomBarBloc>().add(UpdateUserType(userType));
+                });
+                bottomBarBuildBody(context, index, state.userType);
               },
               items: [
                 FlashyTabBarItem(

@@ -2,13 +2,18 @@ import 'package:caresync_hms/Screens%20&%20Features/Billing/billing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../../Core/Bottom Navigation/Bloc/bottom_bar_bloc.dart';
 
 class AppointmentPage extends StatelessWidget {
   const AppointmentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userType = context.read<BottomBarBloc>().state.userType;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Appointments'),
@@ -20,7 +25,9 @@ class AppointmentPage extends StatelessWidget {
                 future: FirebaseFirestore
                     .instance
                     .collection('appointments')
-                    .where('patientID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .where(
+                    userType == 'patient' ? 'patientID' : 'doctorID',
+                    isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                     .get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -82,7 +89,7 @@ class AppointmentPage extends StatelessWidget {
                               _buildRow(Icons.update, 'Updated At', formatter.format(updatedAt)),
                               _buildRow(Icons.info_outline, 'Payment Status', paymentStatus),
 
-                              if(paymentStatus == 'Pending') ...[
+                              if(paymentStatus == 'Pending' && userType == 'patient') ...[
                                 ElevatedButton(
                                     onPressed: (){
                                       Navigator.of(context).push(

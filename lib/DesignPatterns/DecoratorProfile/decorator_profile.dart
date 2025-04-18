@@ -129,6 +129,7 @@ class DoctorProfileDecorator extends ProfileDecorator {
       'availableFrom': availableFrom,
       'availableUntil': availableUntil,
       'consultation_fee': consultationFee,
+      'verified': false,
     };
   }
 }
@@ -161,6 +162,7 @@ class StaffProfileDecorator extends ProfileDecorator {
       'designation': designation,
       'shift': shift,
       'salary': salary,
+      'verified': false,
     };
   }
 }
@@ -181,6 +183,7 @@ class AdminProfileDecorator extends ProfileDecorator {
     return {
       ...super.toMap(),
       'access_level': accessLevel,
+      'verified': false,
     };
   }
 }
