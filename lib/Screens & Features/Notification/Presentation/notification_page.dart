@@ -12,6 +12,7 @@ class NotificationPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Notifications'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Column(

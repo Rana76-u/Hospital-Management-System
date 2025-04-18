@@ -1,21 +1,21 @@
+// Used in LoginPage --> loginOnPressFunctions()
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
-  // Step 1: Private constructor
+  // Private constructor
   AuthService._privateConstructor();
 
-  // Step 2: Static private instance
+  // Single instance
   static final AuthService _instance = AuthService._privateConstructor();
 
-  // Step 3: Public getter
+  // Public getter
   static AuthService get instance => _instance;
 
-  // Firebase and Google sign-in setup
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  // Sign in with Google
+  // Methods
   Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -35,17 +35,14 @@ class AuthService {
     }
   }
 
-  // Sign out
   Future<void> signOut() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
   }
 
-  // Check if signed in
   bool isSignedIn() {
     return _auth.currentUser != null;
   }
 
-  // Get current user
   User? get currentUser => _auth.currentUser;
 }

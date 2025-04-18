@@ -1,3 +1,6 @@
+// Used in Billing/billing.dart
+
+//interface of strategy
 abstract class BillingStrategy {
   double getFinalAmount(double amount);
   String getDescription();
@@ -28,8 +31,8 @@ class PremiumDiscountBilling implements BillingStrategy {
   String getDescription() => "Visa/Master Card (15% Off)";
 }
 
-// Context
-class BillingContext {
+// Context - uses the strategy
+class BillingContext { // <----------------
   BillingStrategy _strategy;
 
   BillingContext(this._strategy);

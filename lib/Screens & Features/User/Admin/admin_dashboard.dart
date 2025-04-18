@@ -85,7 +85,13 @@ class AdminDashboard extends StatelessWidget {
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
       children: [
-        _quickAccessTile('Verify Doctors', Icons.person_add, Colors.teal, () {}),
+        _quickAccessTile('Verify Doctors', Icons.person_add, Colors.teal,
+                () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ListOfUser(userType: 'doctor'),)
+                  );
+                }
+        ),
         _quickAccessTile('Manage Employees', Icons.settings, Colors.purple, () {}),
         _quickAccessTile('Medical Records', Icons.record_voice_over, Colors.indigo, () {}),
         _quickAccessTile('Analytics', Icons.analytics, Colors.deepOrange, () {}),

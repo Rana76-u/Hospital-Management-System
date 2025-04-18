@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../../Core/Doctor Card/doctor_card.dart';
 
-Widget showDoctorProfiles() {
+Widget showDoctorProfileSlider() {
   return Column(
     children: [
       titleAndSeeAllWidget('Featured Doctors'),
@@ -36,7 +36,6 @@ Widget showDoctorProfiles() {
               enlargeFactor: 0.25,
               scrollDirection: Axis.horizontal,
             ),
-            //todo: add the list of doctors from the database
             items: (snapshot.data!.docs as List<QueryDocumentSnapshot>).map((doc) {
               return Builder(
                 builder: (BuildContext context) {

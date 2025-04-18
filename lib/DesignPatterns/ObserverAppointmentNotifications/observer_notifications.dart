@@ -1,12 +1,12 @@
-//Interface
+// Used in AppointmentFacade().bookAppointment()
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//interface
 abstract class AppointmentObserverInterface {
   String get userId;
   String get role; // 'doctor' or 'patient'
   void update(String appointmentId, String status);
 }
-
 
 //Subject
 class AppointmentNotification {
@@ -50,12 +50,13 @@ class AppointmentNotification {
       observer.update(appointmentId, _status);
     }
   }
+
   void clearObservers() {
     _observers.clear();
   }
 }
 
-//Concrete Observers
+//Concrete Observer
 class ObserverDoctor implements AppointmentObserverInterface {
   final String _id;
   ObserverDoctor(this._id);
@@ -72,6 +73,7 @@ class ObserverDoctor implements AppointmentObserverInterface {
   }
 }
 
+//Concrete Observer
 class ObserverPatient implements AppointmentObserverInterface {
   final String _id;
   ObserverPatient(this._id);
