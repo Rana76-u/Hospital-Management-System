@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Core/Navigation/Routing/routing.dart';
 import '../../../../../Core/Snackbar/custom_snackbars.dart';
-import '../../../../../DesignPatterns/DecoratorProfile/new_decorator_profile.dart';
+import '../../../../../DesignPatterns/DecoratorProfile/decorator_profile.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});

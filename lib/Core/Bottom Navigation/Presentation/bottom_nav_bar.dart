@@ -41,6 +41,10 @@ class BottomBar extends StatelessWidget {
                   title: const Text('Appointments'),
                 ),
                 FlashyTabBarItem(
+                  icon: const Icon(Icons.notifications),
+                  title: const Text('Notifications'),
+                ),
+                FlashyTabBarItem(
                   icon: const Icon(Icons.person),
                   title: const Text('Profile'),
                 ),

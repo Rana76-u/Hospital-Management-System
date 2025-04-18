@@ -1,11 +1,11 @@
 // Flutter imports:
 import 'package:caresync_hms/Screens%20&%20Features/Appointment/Presentation/appointment_page.dart';
 import 'package:caresync_hms/Screens%20&%20Features/Homepage/Presentation/home.dart';
+import 'package:caresync_hms/Screens%20&%20Features/Notification/Presentation/notification_page.dart';
 import 'package:flutter/material.dart';
 import '../../../Screens & Features/User/Profile/Presentation/profile.dart';
 
 // Project imports:
-
 Widget bottomBarBuildBody(BuildContext context, int index) {
   switch (index) {
     case 0:
@@ -13,6 +13,8 @@ Widget bottomBarBuildBody(BuildContext context, int index) {
     case 1:
       return const AppointmentPage();
     case 2:
+      return NotificationPage();
+    case 3:
       return ProfileScreen();
     default:
       return const SizedBox();
