@@ -1,9 +1,9 @@
-// Decorator-based User Profile Management
+// Used in SignUp, UserRepository().createNewUser(userType);
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../Screens & Features/User/Profile/Controller/profile_controller.dart';
 
-// ----------------------------- Models -----------------------------
+// Model
 class Person {
   final String id;
   final String name;
@@ -24,12 +24,13 @@ class Person {
   });
 }
 
-// ----------------------------- Decorator Pattern -----------------------------
+// Base component
 abstract class ProfileComponent {
   void displayProfile();
   Map<String, dynamic> toMap();
 }
 
+// Concrete component
 class BasicProfile implements ProfileComponent {
   final Person person;
   BasicProfile(this.person);
@@ -52,6 +53,7 @@ class BasicProfile implements ProfileComponent {
   }
 }
 
+// Decorator
 abstract class ProfileDecorator implements ProfileComponent {
   final ProfileComponent component;
   ProfileDecorator(this.component);
@@ -63,6 +65,7 @@ abstract class ProfileDecorator implements ProfileComponent {
   Map<String, dynamic> toMap() => component.toMap();
 }
 
+// Concrete decorator
 class PatientProfileDecorator extends ProfileDecorator {
   final String bloodGroup;
   final String emergencyContact;
@@ -95,6 +98,7 @@ class PatientProfileDecorator extends ProfileDecorator {
   }
 }
 
+// Concrete decorator
 class DoctorProfileDecorator extends ProfileDecorator {
   final String specialization;
   final String licenceNumber;
@@ -134,6 +138,7 @@ class DoctorProfileDecorator extends ProfileDecorator {
   }
 }
 
+// Concrete decorator
 class StaffProfileDecorator extends ProfileDecorator {
   final String department;
   final String designation;
@@ -167,6 +172,7 @@ class StaffProfileDecorator extends ProfileDecorator {
   }
 }
 
+// Concrete decorator
 class AdminProfileDecorator extends ProfileDecorator {
   final String accessLevel;
 
@@ -188,13 +194,8 @@ class AdminProfileDecorator extends ProfileDecorator {
   }
 }
 
-// ----------------------------- Repository -----------------------------
+// Repository - Main class
 class UserRepository {
-  Future<bool> checkUserExists(String userId) async {
-    final snapshot = await FirebaseFirestore.instance.collection('user').doc(userId).get();
-    return snapshot.exists;
-  }
-
   Future<void> createNewUser(String userType) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -299,5 +300,10 @@ class UserRepository {
     }
 
     await FirebaseFirestore.instance.collection('user').doc(userId).update(profile.toMap());
+  }
+
+  Future<bool> checkUserExists(String userId) async {
+    final snapshot = await FirebaseFirestore.instance.collection('user').doc(userId).get();
+    return snapshot.exists;
   }
 }

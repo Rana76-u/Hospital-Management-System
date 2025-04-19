@@ -72,8 +72,8 @@ class UserDetailsPage extends StatelessWidget {
                           .get()
                           .then((value) => value.data()!['role']);
                       print(validatorRole);
-                      final hospitalSystem = HospitalProxy(role: validatorRole, userId: userDetails['id'] ?? '');
-                      hospitalSystem.verifyUser(validatorRole, userDetails['id'] ?? '', context);
+                      final hospitalProxySystem = HospitalProxy(role: validatorRole, userId: userDetails['id'] ?? '');
+                      hospitalProxySystem.verifyUser(validatorRole, userDetails['id'] ?? '', context);
                     }
                   },
                   child: const Text('Validate'),

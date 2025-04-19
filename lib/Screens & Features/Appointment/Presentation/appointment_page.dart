@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import '../../../Core/Bottom Navigation/Bloc/bottom_bar_bloc.dart';
 
 class AppointmentPage extends StatelessWidget {
@@ -17,6 +16,7 @@ class AppointmentPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Appointments'),
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -1,3 +1,4 @@
+import 'package:caresync_hms/Screens%20&%20Features/Homepage/Presentation/Widgets/show_doctor_column.dart';
 import 'package:caresync_hms/Screens%20&%20Features/Homepage/Presentation/Widgets/show_doctor_profiles.dart';
 import 'package:caresync_hms/Screens%20&%20Features/Homepage/Presentation/Widgets/types_of_doctors_widget.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,11 @@ class PatientDashboard extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 10),
-              showDoctorProfiles(),
+              showDoctorProfileSlider(),
               const SizedBox(height: 20),
               typesOfDoctors(),
+              const SizedBox(height: 20),
+              showDoctorProfileColumn(),
               const SizedBox(height: 200),
             ],
           ),

@@ -1,7 +1,7 @@
+// Used in create_appointment.dart - facade.bookAppointment()
 import 'package:caresync_hms/DesignPatterns/ObserverAppointmentNotifications/observer_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../Core/Snackbar/custom_snackbars.dart';
 
 // Models
@@ -57,6 +57,7 @@ class Appointment {
   }
 }
 
+// Subsystem
 class AppointmentRecordService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -97,6 +98,7 @@ class AppointmentRecordService {
   }
 }
 
+// Subsystem
 class DoctorAvailabilityService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -138,6 +140,7 @@ class DoctorAvailabilityService {
   }
 }
 
+// Facade
 class AppointmentFacade {
   final DoctorAvailabilityService _availabilityService = DoctorAvailabilityService();
   final AppointmentRecordService _recordService = AppointmentRecordService();
@@ -170,6 +173,7 @@ class AppointmentFacade {
 
 
     // Notify observers
+    // Subject of the Observer Pattern
     AppointmentNotification appointmentNotification = AppointmentNotification(appointment);
     appointmentNotification.addObserver(ObserverDoctor(doctorID));
     appointmentNotification.addObserver(ObserverPatient(patientID));

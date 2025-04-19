@@ -11,7 +11,7 @@ Widget signInUsingGoogleButtonType1(BuildContext context) {
       ),
       onPressed: () {
         //open login page
-        //todo:
+        //todo: Skipped Not Necessary
       },
       child: const Text(
         'Sign in using Google',

@@ -42,7 +42,7 @@ class _ProfileIcon extends StatelessWidget {
           PopupMenuItem(
             child: Text('Account'),
             onTap: () {
-              BlocProvider.of<BottomBarBloc>(context).add(BottomBarSelectedItem(2));
+              BlocProvider.of<BottomBarBloc>(context).add(BottomBarSelectedItem(3));
             },
           ),
           PopupMenuItem(
